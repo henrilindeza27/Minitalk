@@ -40,9 +40,16 @@ int	ft_atoi(char *num)
 	return (res);
 }
 
-int ft_strlen(char *str)
+int ft_itsdigit(char *num)
 {
-	int i = -1;
-	while(str[++i]);
-	return i;
+	int i;
+	i = 0;
+	while(num[i])
+	{
+		if(num[i] >= '0' && num[i] <= '9')
+			i++;
+		else
+			return 0;
+	}
+	return 1;
 }

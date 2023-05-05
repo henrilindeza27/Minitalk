@@ -1,60 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: henrique <henrique@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:28:05 by hlindeza          #+#    #+#             */
-/*   Updated: 2023/05/04 17:07:17 by henrique         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:11:27 by henrique         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libminitalk.h"
 
-static int	g_bin[8] = {0};
 
-void	convert_to_txt(int *bin)
+void	handler_sig(int signal, siginfo_t *info, void *context)
 {
-	int		i;
-	int		base;
-	int		convert;
-	char	letra;
+	static unsigned int	c;
+	static int			bit;
 
-	base = 1;
-	i = 7;
-	convert = 0;
-	while (i > 0)
+	(void)context;
+	c = (signal == SIGUSR1) << bit | c;
+	bit++;
+	if (bit == 8)
 	{
-		convert += (base * bin[i--]);
-		base = base << 1;
-	}
-	letra = (char)convert;
-	ft_putchar(letra);
-}
-
-void	save_bin(int bit)
-{
-	static int	i;
-
-	if (bit == SIGUSR1)
-		g_bin[i++] = 1;
-	else if (bit == SIGUSR2)
-		g_bin[i++] = 0;
-	if (i == 8)
-	{
-		convert_to_txt(g_bin);
-		i = 0;
+		
+		if(!c)
+			kill(info->si_pid, SIGUSR2);
+		else
+			ft_putchar(c);
+	
+		bit = 0;
+		c = 0;
 	}
 }
+
 
 int	main(void)
 {
+    struct sigaction	act;
+
 	ft_putstr("PID ID -> ");
 	ft_putnubr(getpid());
 	ft_putchar('\n');
-	signal(SIGUSR1, save_bin);
-	signal(SIGUSR2, save_bin);
+	act.sa_sigaction = handler_sig;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &act, 0);
+	sigaction(SIGUSR2, &act, 0);
 	while (1)
 		pause();
 }
