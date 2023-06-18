@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrique <henrique@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlindeza <hlindeza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:28:03 by hlindeza          #+#    #+#             */
-/*   Updated: 2023/05/04 17:09:12 by henrique         ###   ########.fr       */
+/*   Updated: 2023/05/07 12:02:37 by hlindeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	send_bit(char *txt, int pid_id)
 			else
 				kill(pid_id, SIGUSR2);
 			base = base >> 1;
-			usleep(2000);
+			usleep(250);
 		}
 	}
 }

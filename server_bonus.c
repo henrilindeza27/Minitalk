@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrique <henrique@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlindeza <hlindeza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:28:05 by hlindeza          #+#    #+#             */
-/*   Updated: 2023/05/05 11:11:27 by henrique         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:53:03 by hlindeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ void	handler_sig(int signal, siginfo_t *info, void *context)
 
 int	main(void)
 {
-    struct sigaction	act;
+    struct sigaction	sig;
 
 	ft_putstr("PID ID -> ");
 	ft_putnubr(getpid());
 	ft_putchar('\n');
-	act.sa_sigaction = handler_sig;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &act, 0);
-	sigaction(SIGUSR2, &act, 0);
+	sig.sa_sigaction = handler_sig;
+	sigemptyset(&sig.sa_mask);
+	sig.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sig, 0);
+	sigaction(SIGUSR2, &sig, 0);
 	while (1)
 		pause();
 }

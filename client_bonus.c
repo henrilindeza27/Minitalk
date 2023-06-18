@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrique <henrique@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlindeza <hlindeza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:28:03 by hlindeza          #+#    #+#             */
-/*   Updated: 2023/05/05 10:53:27 by henrique         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:55:10 by hlindeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	send_bit(unsigned int c, int pid_id)
 
 void	handler(int signal)
 {
-	if (signal == SIGUSR1)
-		return ;
-	else if (signal == SIGUSR2)
+	if (signal == SIGUSR2)
 	{
 		ft_putstr("Message recieved\n");
 		exit(0);
